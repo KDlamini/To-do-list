@@ -1,14 +1,11 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Awesome Books
+# To Do List
 
-This project will be a basic website that allows users to add/remove books from a list.
+This project will be a basic website that allows users to add, modify and remove a list of To Do tasks.
 
 
-This project is part of the Microverse curriculum. The main objective is to understand how to use JavaScript objects and arrays and dynamically modify the DOM and add basic events. This will follow professional guidlines in responsive design.
-
-## Live Preview
-[https://kdlamini.github.io/awesome-books-javascript/](https://kdlamini.github.io/awesome-books-javascript/)
+This project is part of the Microverse curriculum. The main objective is to use webpack to bundle JavaScript, learn how to use proper ES6 syntax, use ES6 modules to write modular JavaScript, and learn how to use JavaScript objects and arrays and dynamically modify the DOM and add basic events. This will follow professional guidelines in responsive design.
 
 ## Built With
 
@@ -28,7 +25,7 @@ To get a local copy of this project:
 
 Clone this repository or download the Zip folder:
 ```
-git@github.com:KDlamini/awesome-books-javascript.git
+https://github.com/KDlamini/To-do-list.git
 ```  
 
 ## Test
@@ -63,7 +60,7 @@ npx eslint .
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!  
-Feel free to check the [issues page](https://github.com/KDlamini/awesome-books-javascript/issues).
+Feel free to check the [issues page](https://github.com/KDlamini/To-do-list/issues).
 
 
 ## Show your support
