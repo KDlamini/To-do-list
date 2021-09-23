@@ -1,19 +1,8 @@
 import { isComplete, checkboxEvent } from './completed';
+import { modifyList, addToDo } from './addAndRemove';
 import './style.css';
 
-// Array data for todo list
-let todoListData = [
-  {
-    index: 0,
-    description: 'complete day 3 tasks on time',
-    completed: false,
-  },
-  {
-    index: 1,
-    description: 'Read a book for at least 1 hour',
-    completed: false,
-  },
-];
+let todoListData = [];
 
 const createIndexes = () => {
   for (let idx = 0; idx < todoListData.length; idx++) { /* eslint-disable-line no-plusplus */
@@ -27,19 +16,6 @@ const saveToLocalStorage = () => {
 
 const refreshPage = () => {
   window.location.reload();
-};
-
-const addToDo = (input) => {
-  const dataObj = {
-    index: todoListData.length,
-    description: '',
-    completed: false,
-  };
-
-  dataObj.description = input;
-  todoListData.push(dataObj);
-  saveToLocalStorage();
-  refreshPage();
 };
 
 const component = () => {
@@ -83,12 +59,16 @@ const component = () => {
 
   addItem.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-      addToDo(addItem.value);
+      addToDo(addItem.value, todoListData);
+      saveToLocalStorage();
+      refreshPage();
     }
   });
 
   enterButton.addEventListener('click', () => {
-    addToDo(addItem.value);
+    addToDo(addItem.value, todoListData);
+    saveToLocalStorage();
+    refreshPage();
   });
 
   // Populate todo items
@@ -115,12 +95,6 @@ const component = () => {
       taskButton.innerHTML = '<i class=\'ellipsis vertical icon\'></i>';
       element.appendChild(taskButton);
 
-      // TODO: This code is reserved for the next project task.
-      // description.addEventListener('focus', (e) => {
-      //   e.target.parentNode.style.background = '#ffff0080';
-      //   e.target.parentNode.lastElementChild.innerHTML = `<i class="trash alternate icon"></i>`;
-      // });
-
       // Handle checkbox change event
       checkboxEvent(checkbox, todo, saveToLocalStorage, refreshPage);
       isComplete(todo.completed, description);
@@ -128,6 +102,9 @@ const component = () => {
       todoContainer.appendChild(element);
     });
   }
+
+  // Edit and Remove
+  modifyList(todoListData, saveToLocalStorage, createIndexes, refreshPage);
 
   // Clear completed button
   element = document.createElement('li');
