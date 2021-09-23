@@ -9,7 +9,7 @@ export const isComplete = (complete, description) => {
 };
 
 export const checkboxEvent = (checkbox, todo, saveToLocalStorage, refreshPage) => {
-  checkbox.addEventListener('change', (e) => {
+  checkbox.addEventListener('change', () => {
     if (checkbox.checked) {
       todo.completed = true;
       saveToLocalStorage();

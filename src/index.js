@@ -1,4 +1,4 @@
-import { isComplete, checkboxEvent } from './completed.js';
+import { isComplete, checkboxEvent } from './completed';
 import './style.css';
 
 // Array data for todo list
@@ -16,7 +16,7 @@ let todoListData = [
 ];
 
 const createIndexes = () => {
-  for (let idx = 0; idx < todoListData.length; idx++) {
+  for (let idx = 0; idx < todoListData.length; idx++) { /* eslint-disable-line no-plusplus */
     todoListData[idx].index = idx;
   }
 };
@@ -38,7 +38,6 @@ const addToDo = (input) => {
 
   dataObj.description = input;
   todoListData.push(dataObj);
-  console.log(todoListData);
   saveToLocalStorage();
   refreshPage();
 };
@@ -97,26 +96,26 @@ const component = () => {
     todoListData.forEach((todo) => {
       element = document.createElement('li');
       element.className = 'todo-item';
-  
+
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.className = 'checkbox';
       checkbox.checked = todo.completed;
       element.appendChild(checkbox);
-  
+
       const description = document.createElement('textarea');
       description.className = 'description';
       description.rows = 'auto';
       description.value = todo.description.toLowerCase().charAt(0).toUpperCase();
       description.value += todo.description.slice(1);
       element.appendChild(description);
-  
+
       const taskButton = document.createElement('button');
       taskButton.className = 'task-button';
       taskButton.innerHTML = '<i class=\'ellipsis vertical icon\'></i>';
       element.appendChild(taskButton);
 
-      //TODO: This code is reserved for the next project task.
+      // TODO: This code is reserved for the next project task.
       // description.addEventListener('focus', (e) => {
       //   e.target.parentNode.style.background = '#ffff0080';
       //   e.target.parentNode.lastElementChild.innerHTML = `<i class="trash alternate icon"></i>`;
@@ -125,7 +124,7 @@ const component = () => {
       // Handle checkbox change event
       checkboxEvent(checkbox, todo, saveToLocalStorage, refreshPage);
       isComplete(todo.completed, description);
-  
+
       todoContainer.appendChild(element);
     });
   }
@@ -139,7 +138,7 @@ const component = () => {
   element.appendChild(clearCompleted);
   todoContainer.appendChild(element);
 
-  clearCompleted.addEventListener('click', () => {    
+  clearCompleted.addEventListener('click', () => {
     todoListData = todoListData.filter((todo) => todo.completed !== true);
     createIndexes();
     saveToLocalStorage();
