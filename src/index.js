@@ -1,16 +1,18 @@
 import { isComplete, checkboxEvent } from './completed';
-import { modifyList, addToDo } from './addAndRemove';
+import { updateList, addToDo, clearAll, clearAllCompleted, deleteItem, capitalizeDescription } from './addAndRemove';
 import './style.css';
 
 let todoListData = [];
 
-const createIndexes = () => {
+const createIndexes = (todoListData) => {
   for (let idx = 0; idx < todoListData.length; idx++) { /* eslint-disable-line no-plusplus */
     todoListData[idx].index = idx;
   }
+
+  return todoListData;
 };
 
-const saveToLocalStorage = () => {
+const saveToLocalStorage = (todoListData) => {
   localStorage.setItem('todo_list', JSON.stringify(todoListData));
 };
 
@@ -35,11 +37,8 @@ const component = () => {
   element.appendChild(clear);
   todoContainer.appendChild(element);
 
-  clear.addEventListener('click', () => {
-    todoListData.splice(0);
-    saveToLocalStorage();
-    refreshPage();
-  });
+  // Clear all items on click
+  clearAll(clear, todoListData, saveToLocalStorage, refreshPage);
 
   // Add todo item
   element = document.createElement('li');
@@ -60,14 +59,14 @@ const component = () => {
   addItem.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       addToDo(addItem.value, todoListData);
-      saveToLocalStorage();
+      saveToLocalStorage(todoListData);
       refreshPage();
     }
   });
 
   enterButton.addEventListener('click', () => {
     addToDo(addItem.value, todoListData);
-    saveToLocalStorage();
+    saveToLocalStorage(todoListData);
     refreshPage();
   });
 
@@ -86,8 +85,7 @@ const component = () => {
       const description = document.createElement('textarea');
       description.className = 'description';
       description.rows = 'auto';
-      description.value = todo.description.toLowerCase().charAt(0).toUpperCase();
-      description.value += todo.description.slice(1);
+      description.value = capitalizeDescription(todo.description);
       element.appendChild(description);
 
       const taskButton = document.createElement('button');
@@ -96,15 +94,18 @@ const component = () => {
       element.appendChild(taskButton);
 
       // Handle checkbox change event
-      checkboxEvent(checkbox, todo, saveToLocalStorage, refreshPage);
+      checkboxEvent(checkbox, todo, todoListData, saveToLocalStorage, refreshPage);
       isComplete(todo.completed, description);
 
       todoContainer.appendChild(element);
     });
   }
 
-  // Edit and Remove
-  modifyList(todoListData, saveToLocalStorage, createIndexes, refreshPage);
+  // Update active item
+  updateList(todoListData, saveToLocalStorage, refreshPage);
+
+  // Retrieve parameters for delete button
+  deleteItem(todoListData, createIndexes, saveToLocalStorage, refreshPage);
 
   // Clear completed button
   element = document.createElement('li');
@@ -115,12 +116,8 @@ const component = () => {
   element.appendChild(clearCompleted);
   todoContainer.appendChild(element);
 
-  clearCompleted.addEventListener('click', () => {
-    todoListData = todoListData.filter((todo) => todo.completed !== true);
-    createIndexes();
-    saveToLocalStorage();
-    refreshPage();
-  });
+  // Clear all completed items on the list
+  clearAllCompleted(clearCompleted, todoListData, createIndexes, saveToLocalStorage, refreshPage);
 };
 
 const loadPage = () => {
