@@ -1,6 +1,6 @@
 export const addToDo = (input, todoListData) => {
   const dataObj = {
-    index: todoListData.length,
+    index: todoListData.length + 1,
     description: '',
     completed: false,
   };
@@ -46,7 +46,7 @@ const getActiveItemIndex = (todoListData, value) => {
 
   todoListData.forEach((data) => {
     if (data.description === value.toLowerCase()) {
-      index = data.index;
+      index = data.index - 1;
     }
   });
 
@@ -54,8 +54,8 @@ const getActiveItemIndex = (todoListData, value) => {
 };
 
 // Change task-button and background for active item
-const changeTaskButton = (activeDescription, activeDeleteButton) => {
-  activeDescription.parentNode.style.background = '#ffff0080';
+const changeTaskButton = (listItem, activeDeleteButton) => {
+  listItem.style.background = '#ffff0080';
   activeDeleteButton.innerHTML = '<i class=\'trash alternate icon\'></i>';
 };
 
@@ -93,7 +93,7 @@ export const updateList = (todoListData, saveToLocalStorage, refreshPage) => {
       const activeIndex = getActiveItemIndex(todoListData, activeDescription.value);
 
       // Change to delete button
-      changeTaskButton(activeDescription, activeDescription.parentNode.lastElementChild);
+      changeTaskButton(activeDescription.parentNode, activeDescription.parentNode.lastElementChild);
 
       // Handle change for active item description
       activeDescription.addEventListener('change', () => {

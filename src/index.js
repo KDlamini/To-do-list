@@ -8,7 +8,7 @@ let todoListData = [];
 
 const createIndexes = (todoListData) => {
   for (let idx = 0; idx < todoListData.length; idx++) { /* eslint-disable-line no-plusplus */
-    todoListData[idx].index = idx;
+    todoListData[idx].index = idx + 1;
   }
 
   return todoListData;
