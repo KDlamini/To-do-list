@@ -1,5 +1,7 @@
 import { isComplete, checkboxEvent } from './completed';
-import { updateList, addToDo, clearAll, clearAllCompleted, deleteItem, capitalizeDescription } from './addAndRemove';
+import {
+  updateList, addToDo, clearAll, clearAllCompleted, deleteItem, capitalize,
+} from './addAndRemove';
 import './style.css';
 
 let todoListData = [];
@@ -85,7 +87,7 @@ const component = () => {
       const description = document.createElement('textarea');
       description.className = 'description';
       description.rows = 'auto';
-      description.value = capitalizeDescription(todo.description);
+      description.value = capitalize(todo.description);
       element.appendChild(description);
 
       const taskButton = document.createElement('button');

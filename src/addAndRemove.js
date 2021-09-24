@@ -9,9 +9,7 @@ export const addToDo = (input, todoListData) => {
   todoListData.push(dataObj);
 };
 
-export const capitalizeDescription = (value) => {
-  return value.toLowerCase().charAt(0).toUpperCase() + value.slice(1);
-};
+export const capitalize = (value) => value.toLowerCase().charAt(0).toUpperCase() + value.slice(1);
 
 // clear previous active items
 const clearPreviousActiveItem = (todoItemArray) => {
@@ -33,12 +31,12 @@ export const clearAll = (clear, todoListData, saveToLocalStorage, refreshPage) =
 };
 
 // Clear all completed items on the list
-export const clearAllCompleted = (clearCompleted, todoListData, createIndexes, saveToLocalStorage, refreshPage) => {
-  clearCompleted.addEventListener('click', () => {
+export const clearAllCompleted = (completed, todoListData, indexes, save, refresh) => {
+  completed.addEventListener('click', () => {
     todoListData = todoListData.filter((todo) => todo.completed !== true);
-    createIndexes(todoListData);
-    saveToLocalStorage(todoListData);
-    refreshPage();
+    indexes(todoListData);
+    save(todoListData);
+    refresh();
   });
 };
 
@@ -67,15 +65,15 @@ export const deleteItem = (todoListData, createIndexes, saveToLocalStorage, refr
 
   deleteButtonArray.forEach((button) => {
     button.addEventListener('click', (e) => {
-      let index;
+      let idx;
 
       if (e.target.classList.contains('trash', 'icon')) {
-        index = getActiveItemIndex(todoListData, e.target.parentNode.parentNode.childNodes[1].value);
+        idx = getActiveItemIndex(todoListData, e.target.parentNode.parentNode.childNodes[1].value);
       } else {
-        index = getActiveItemIndex(todoListData, e.target.parentNode.childNodes[1].value);
+        idx = getActiveItemIndex(todoListData, e.target.parentNode.childNodes[1].value);
       }
-      
-      todoListData.splice(index, 1);
+
+      todoListData.splice(idx, 1);
       createIndexes(todoListData);
       saveToLocalStorage(todoListData);
       refreshPage();
@@ -95,11 +93,11 @@ export const updateList = (todoListData, saveToLocalStorage, refreshPage) => {
       const activeIndex = getActiveItemIndex(todoListData, activeDescription.value);
 
       // Change to delete button
-      changeTaskButton (activeDescription, activeDescription.parentNode.lastElementChild);
-    
+      changeTaskButton(activeDescription, activeDescription.parentNode.lastElementChild);
+
       // Handle change for active item description
       activeDescription.addEventListener('change', () => {
-        todoListData[activeIndex].description = capitalizeDescription(activeDescription.value);
+        todoListData[activeIndex].description = capitalize(activeDescription.value);
         saveToLocalStorage(todoListData);
         refreshPage();
       });
