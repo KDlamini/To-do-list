@@ -8,15 +8,15 @@ export const isComplete = (complete, description) => {
   }
 };
 
-export const checkboxEvent = (checkbox, todo, saveToLocalStorage, refreshPage) => {
+export const checkboxEvent = (checkbox, todo, todoListData, saveToLocalStorage, refreshPage) => {
   checkbox.addEventListener('change', () => {
     if (checkbox.checked) {
       todo.completed = true;
-      saveToLocalStorage();
+      saveToLocalStorage(todoListData);
       refreshPage();
     } else {
       todo.completed = false;
-      saveToLocalStorage();
+      saveToLocalStorage(todoListData);
       refreshPage();
     }
   });
