@@ -8,7 +8,7 @@ This project will be a basic website that allows users to add, modify and remove
 This project is part of the Microverse curriculum. The main objective is to use webpack to bundle JavaScript, learn how to use proper ES6 syntax, use ES6 modules to write modular JavaScript, and learn how to use JavaScript objects and arrays and dynamically modify the DOM and add basic events. This will follow professional guidelines in responsive design.
 
 ## Live Preview
-[https://kdlamini.github.io/To-do-list/](https://kdlamini.github.io/To-do-list/)
+[https://kdlamini.github.io/To-do-list/](https://kdlamini.github.io/To-do-list/dist)
 
 ## Built With
 
